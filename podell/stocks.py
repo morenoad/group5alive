@@ -6,19 +6,21 @@ If you find a stock online that is not in the list, just add it and rerun this s
 Note: only 5 years data from now is available for free so you will have to adjust the start and end dates
 """
 
-from StringIO import StringIO
+#from StringIO import StringIO
 import numpy as np
+import os
 #from pandas.io import data, wb # becomes
 import pandas as pd
 pd.core.common.is_list_like = pd.api.types.is_list_like
-from pandas_datareader import data, wb
+#from pandas_datareader import data, wb
 import datetime
 start = datetime.datetime(2013, 9, 14) #edit this to be 5 years before today
 end = datetime.datetime(2018, 9, 14) #make this today (yes there is a better way to do this)
 
 
-outputDirectoryPath = 'C:\\Users\\adamm\\Desktop\\StockData\\'  # directory where all of the individual stock data will sit
-companyListPath = 'C:\\Users\\adamm\\Desktop\\companylist.csv'  # path to the list of stock symbols
+
+outputDirectoryPath = os.path.abspath(os.path.dirname(__file__) + os.sep + '..' +  os.sep + 'stock_data')  # directory where all of the individual stock data will sit
+companyListPath = outputDirectoryPath + os.sep + 'companylist.csv'  # path to the list of stock symbols
 
 
 #####################################################################
@@ -40,5 +42,5 @@ for st in stockSym:
             path = outputDirectoryPath+st+'.csv'
             f.to_csv(path)
         except:
-            print st
+            print(st)
 
